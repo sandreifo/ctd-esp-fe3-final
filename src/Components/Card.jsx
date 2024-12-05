@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useContextGlobal } from "./utils/global.context";
 
 
 const Card = ({ dentist }) => {
-
-  // const addFav = ()=>{
-  //   // Aqui iria la logica para agregar la Card en el localStorage
-  // }
+  const {setFavs} = useContextGlobal();
+  const addFav = () => {
+    // Aqui iria la logica para agregar la Card en el localStorage
+    setFavs((favs) => [...favs, dentist]);
+  };
 
   return (
 
@@ -17,13 +19,10 @@ const Card = ({ dentist }) => {
       <h3>{dentist.name}</h3>
       <p>{dentist.username}</p>
       </Link>
-      {/* <button onClick={handleAddFav}>Add Fav</button> */}
-      {/* <button>
-        <a href={`/dentist/${dentist.id}`}>View Details</a>
-      </button> */}
+      <button onClick={addFav} className="favButton">Add fav</button> 
     </div>
 
-    //    <button onClick={addFav} className="favButton">Add fav</button>    
+          
   );
 };
 

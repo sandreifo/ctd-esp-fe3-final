@@ -5,8 +5,11 @@ import axios from "axios";
 
 export const ContextGlobal = createContext();
 
+const lsFavs = JSON.parse(localStorage.getItem("favs")) || [];
+
 const ContextProvider = ({ children }) => {
   //Aqui deberan implementar la logica propia del Context, utilizando el hook useMemo
+  const [favs, setFavs] = useState(lsFavs);
   const [dentists, setDentists] = useState([]);
   const url = "https://jsonplaceholder.typicode.com/users";
 
@@ -17,8 +20,12 @@ const ContextProvider = ({ children }) => {
     });
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("favs", JSON.stringify(favs));
+  }, [favs]);
+
   return (
-    <ContextGlobal.Provider value={{dentists}}>
+    <ContextGlobal.Provider value={{dentists, favs, setFavs}}>
       {children}
     </ContextGlobal.Provider>
   );
