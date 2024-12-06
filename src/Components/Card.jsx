@@ -4,10 +4,12 @@ import { useContextGlobal } from "./utils/global.context";
 
 
 const Card = ({ dentist }) => {
-  const {setFavs} = useContextGlobal();
-  const addFav = () => {
+  const {dispatch, state} = useContextGlobal();
+  const findFav = state.favs.some((fav) => fav.id ===dentist.id);
+  console.log(findFav);
+  const toggleFav = () => {
     // Aqui iria la logica para agregar la Card en el localStorage
-    setFavs((favs) => [...favs, dentist]);
+    dispatch({type: findFav ? "DELETE_FAVORITE" : "ADD_FAVORITE", payload: dentist})
   };
 
   return (
@@ -19,7 +21,7 @@ const Card = ({ dentist }) => {
       <h3>{dentist.name}</h3>
       <p>{dentist.username}</p>
       </Link>
-      <button onClick={addFav} className="favButton">Add fav</button> 
+      <button onClick={toggleFav} className="favButton">{findFav ? "Remove fav" : "Add fav"}</button> 
     </div>
 
           
