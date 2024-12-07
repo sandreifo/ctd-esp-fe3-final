@@ -3,26 +3,25 @@ import { useContextGlobal } from "./utils/global.context";
 
 const Form = () => {
     //Aqui deberan implementar el form completo con sus validaciones
-  const { dentists } = useContextGlobal();
+  const {state} = useContextGlobal ();
   const [formData, setFormData] = useState({ name: "", email: "" });
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState(false);
 
-  const validate = () => {
-    const newErrors = {};
-    if (!formData.name || formData.name.length < 3) {
-      newErrors.name = "El nombre debe tener al menos 3 caracteres.";
+  const validation = () => {
+    const error = {};
+    if (!formData.name || formData.name.length <= 5) {
+      error.name = "El nombre debe tener más de 5 caracteres.";
     }
     if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "El correo electrónico no es válido.";
+      error.email = "El correo electrónico no es válido.";
     }
-    return newErrors;
+    return error;
   };
 
-  // Manejo del submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newErrors = validate();
+    const newErrors = validation();
     if (Object.keys(newErrors).length === 0) {
       console.log("Datos enviados:", formData);
       setSuccess(true);
@@ -33,15 +32,14 @@ const Form = () => {
     }
   };
 
-  // Manejo del cambio en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" }); // Limpiar errores en tiempo real
+    setErrors({ ...errors, [name]: "" }); 
   };
 
   return (
-    <div className={`form-container ${dentists.theme === "dark" ? "dark" : "light"}`}>
+    <div className={`form-container ${state.theme === "dark" ? "dark" : "light"}`}>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Nombre:</label>
@@ -53,7 +51,7 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Ingresa tu nombre"
           />
-          {errors.name && <p className="error">{errors.name}</p>}
+          {errors.name && <p className="error">Por favor verifica tu información nuevamente</p>}
         </div>
         <div>
           <label htmlFor="email">Correo Electrónico:</label>
@@ -65,10 +63,14 @@ const Form = () => {
             onChange={handleChange}
             placeholder="Ingresa tu correo"
           />
-          {errors.email && <p className="error">{errors.email}</p>}
+          {errors.email && <p className="error">Por favor verifica tu información nuevamente</p>}
         </div>
         <button type="submit">Enviar</button>
-        {success && <p className="success">¡Formulario enviado con éxito!</p>}
+        {success && (
+          <p className="success">
+            Gracias {formData.name}, te contactaremos cuando antes vía mail
+          </p>
+        )}
       </form>
     </div>
   );

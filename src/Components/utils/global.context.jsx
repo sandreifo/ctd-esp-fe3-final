@@ -13,12 +13,12 @@ const reducer = (state, action) => {
       return { ...state, dentists: action.payload };
     case "ADD_FAVORITE":
       if (state.favs.some((fav) => fav.id === action.payload.id)) {
-        return state; // Avoid duplicates
+        return state;
       }
       return { ...state, favs: [...state.favs, action.payload] };
     case "DELETE_FAVORITE":
-      const filterFavs = [];
-      return {...state, favs: filterFavs};
+      const filterFavs = state.favs.filter((fav) => fav.id !== action.payload.id);
+      return { ...state, favs: filterFavs };
     case "TOGGLE_THEME":
       return { ...state, theme: state.theme === "light" ? "dark" : "light" };
     default:

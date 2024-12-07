@@ -7,7 +7,7 @@ import { useContextGlobal } from "../Components/utils/global.context";
 const Favs = () => {
   const { state } = useContextGlobal();
   return (
-    <div className="card-grid">
+    <div className={`card-grid ${state.theme}`}>
       {state.favs.map((dentist) => (
         <Card key={dentist.id} dentist={dentist} />
       ))}

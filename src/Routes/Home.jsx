@@ -7,7 +7,7 @@ const Home = () => {
   const {state} = useContextGlobal ();
 
   return (
-    <div className="card-grid">
+    <div className={`card-grid ${state.theme}`}>
       {state.dentists.map((dentist) => (
         <Card key={dentist.id} dentist={dentist}/>))
       }

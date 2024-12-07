@@ -15,11 +15,12 @@ const Card = ({ dentist }) => {
   return (
 
     <div className="card">
-//     {/* En cada card deberan mostrar en name - username y el id */}
-//     {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
+     {/* En cada card deberan mostrar en name - username y el id */}
+     {/* No debes olvidar que la Card a su vez servira como Link hacia la pagina de detalle */}
       <Link to={`/dentist/${dentist.id}`}>
       <h3>{dentist.name}</h3>
-      <p>{dentist.username}</p>
+      <p>Username: {dentist.username}</p>
+      <p>ID: {dentist.id}</p>
       </Link>
       <button onClick={toggleFav} className="favButton">{findFav ? "Remove fav" : "Add fav"}</button> 
     </div>
