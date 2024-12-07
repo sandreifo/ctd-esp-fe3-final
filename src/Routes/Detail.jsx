@@ -21,7 +21,7 @@ const Detail = () => {
   }, []);
 
   return (
-    <div className={`card-grid ${state.theme}`}>
+    <div className={`detail ${state.theme}`}>
       <h1>{dentist.name}</h1>
       <p>Email: {dentist.email}</p>
       <p>Phone: {dentist.phone}</p>
